@@ -5,4 +5,4 @@
 上次更新：<i>Sep 17, 2017</i>
 
 * <b>client</b> -- 用戶端JavaScript、HTML、CSS檔案<br>
-* <b>server</b> -= 伺服器端JavaScript檔案
+* <b>server</b> -- 伺服器端JavaScript檔案
