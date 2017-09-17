@@ -6,7 +6,8 @@
 
 msgRecords = new Mongo.Collection('msgRecords');
 
-Meteor.startup(function(){
+Meteor.startup(function() {
+  console.log('Update history test.');
   //Actions executed after the app has started.
 });
 
