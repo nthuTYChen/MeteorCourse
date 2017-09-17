@@ -1,0 +1,27 @@
+<!-- 
+    ELIZA Meteor Template Created by CHEN, Tsung-Ying
+    for the NTHU course "Basic Web Linguistic Application Development"
+    Last Updated on Aug 4, 2017
+-->
+
+<head>
+  <title>My ELIZA</title>
+</head>
+
+<body>
+  <center>
+    <h1>This is my ELIZA!</h1>
+    <form>
+      <p>
+        <textarea id = "conversationBox" rows = "20" cols = "80" readOnly>{{allMsg}}</textarea>
+      </p>
+      <p>
+        <input type = "text" id = "myMsg" size = "80" placeholder = "Enter Your Message" />
+      </p>
+      <p>
+        <input type = "submit" id = "submitMsg" value = "Submit" />
+        <input type = "reset" id = "resetMsg" value = "Reset" />
+      </p>
+    </form>
+  </center>
+</body>
