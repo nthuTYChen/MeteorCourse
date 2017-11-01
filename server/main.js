@@ -13,19 +13,22 @@ Meteor.startup(function(){
 
 //所有大腦(伺服器)的功能都會在這裡定義
 Meteor.methods({
-  //接收訊息的大腦功能msgReceiver，會接收到一個訊息msg。請勿變更此功能內容
+  //接收訊息的大腦功能msgReceiver，會接收到一個訊息msg。
+  /***請勿變更此功能內容***/
   msgReceiver: function(msg) {
 
     //每一個訊息都會被放進msgRecords資料庫，而每一筆資料都會包含三種資訊：
     //createdAt代表訊息被存入資料庫的時間(new Date()會得到當下的系統時間)、speaker
     //代表說話者(接收到的訊息的說話者是You)、msg則是訊息本身(接收到的msg變數)
-    msgRecords.insert({createdAt: new Date(), speaker: "You", msg: msg}); //請勿變更此行
+    msgRecords.insert({createdAt: new Date(), speaker: "You", msg: msg});
 
+    //呼叫運算接收到的訊息的內部功能processMsg，並傳送msg訊息
     processMsg(msg);
     //回傳一個執行完畢的訊號
     return;
   },
-  //重設訊息資料庫的大腦功能resetELIZA，除預設訊息的內容之外，請勿變更此功能
+  //重設訊息資料庫的大腦功能resetELIZA。
+  /***除預設訊息的內容之外，請勿變更此功能***/
   resetELIZA: function() {
     //移除所有msgRecords資料庫的記憶
     msgRecords.remove({});
@@ -46,7 +49,7 @@ var processMsg = function(msg) {  //請勿變更此行
   //目前的訊息處理很簡單，不管收到的msg訊息是什麼，運算結果都只是Hello World
   processResults = "Hello world!";
 
-  //「以上」是你可以編輯的部份，請將你的ELIZA處理訊息的核心程式碼放在以下的段落內
+  //「以上」是你可以編輯的部份，請將你的ELIZA處理訊息的核心程式碼放在以上的段落內
 
   //在msgRecords資料庫放入運算訊息之後的結果，做為ELIZA的回應，請勿變更此行
   msgRecords.insert({createdAt: new Date(), speaker: 'ELIZA', msg: processResults});
