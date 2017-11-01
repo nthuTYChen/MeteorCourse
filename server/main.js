@@ -46,8 +46,12 @@ var processMsg = function(msg) {  //請勿變更此行
   var processResults = "";  //請勿變更此行
   //「以下」是你可以編輯的部份，請將你的ELIZA處理訊息的核心程式碼放在以下的段落內
 
-  //目前的訊息處理很簡單，不管收到的msg訊息是什麼，運算結果都只是Hello World
-  processResults = "Hello world!";
+  //目前完全沒有訊息處理。所以processResults一定是空字串
+  //這邊在判斷processResults是空字串的時候會放進一個預設的訊息
+  if(processResults = "")
+  {
+    processResults = "Hello world!";
+  }
 
   //「以上」是你可以編輯的部份，請將你的ELIZA處理訊息的核心程式碼放在以上的段落內
 
