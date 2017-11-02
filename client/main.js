@@ -4,15 +4,15 @@
     Last Updated on Nov 1, 2017
 */
 
-//把msgRecords的mongoDB資料庫連結到msgRecords這個用戶端的Global Variable
-msgRecords = new Mongo.Collection(msgRecords); //請勿變更此行
+//把msgRecords的mongoDB資料庫連結到msgRecords
+msgRecords = new Mongo.Collection("msgRecords"); //請勿變更此行
 
 Template.body.helpers({
   allMsg: function() {
-    //從msgRecords搜尋所有訊息，並且依createdAt的內容以遞減方式排序
+    //從msgRecords搜尋所有訊息，並且依time的內容以遞增方式(1)排序
     //因為資料庫的存取是有反應性(reactive)的，每次資料庫的內容變更
     //整個helpers就會重新執行一次，所以網頁的內容就會隨資料庫內容改變
-    var allMsgs = msgRecords.find({}, {$sort: {createdAt: -1}});
+    var allMsgs = msgRecords.find({}, {sort: {time: 1}});
     //將資料庫搜尋結果轉換為一個物件陣列
     allMsgs = allMsgs.fetch();
     //建立一個變數儲存要回傳的所有訊息字串
@@ -22,7 +22,7 @@ Template.body.helpers({
     if(allMsgs.length > 0)
     {
       //利用for迴圈合併每個訊息中的說話者跟訊息內容並儲存到msgTexts裡
-      for(index=0 ; i<allMsgs.length; index++)
+      for(index=0 ; index<allMsgs.length; index++)
       {
         //allMsgs[index].speaker = 這筆訊息的說話者
         //allMsgs[index].msg = 這筆訊息的內容

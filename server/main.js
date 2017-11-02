@@ -18,9 +18,9 @@ Meteor.methods({
   msgReceiver: function(msg) {
 
     //每一個訊息都會被放進msgRecords資料庫，而每一筆資料都會包含三種資訊：
-    //createdAt代表訊息被存入資料庫的時間(new Date()會得到當下的系統時間)、speaker
+    //time代表訊息被存入資料庫的時間(new Date()會得到當下的系統時間)、speaker
     //代表說話者(接收到的訊息的說話者是You)、msg則是訊息本身(接收到的msg變數)
-    msgRecords.insert({createdAt: new Date(), speaker: "You", msg: msg});
+    msgRecords.insert({time: new Date(), speaker: "You", msg: msg});
 
     //呼叫運算接收到的訊息的內部功能processMsg，並傳送msg訊息
     processMsg(msg);
@@ -33,7 +33,7 @@ Meteor.methods({
     //移除所有msgRecords資料庫的記憶
     msgRecords.remove({});
     //移除所有資料後放入一筆預設的訊息資料
-    msgRecords.insert({createdAt: new Date(), speaker: "ELIZA", msg: "This is ELIZA. How are you doing today?"});
+    msgRecords.insert({time: new Date(), speaker: "ELIZA", msg: "This is ELIZA. How are you doing today?"});
     //回傳一個執行完畢的訊號
     return;
   }
@@ -48,7 +48,7 @@ var processMsg = function(msg) {  //請勿變更此行
 
   //目前完全沒有訊息處理。所以processResults一定是空字串
   //這邊在判斷processResults是空字串的時候會放進一個預設的訊息
-  if(processResults = "")
+  if(processResults === "")
   {
     processResults = "Hello world!";
   }
@@ -56,5 +56,5 @@ var processMsg = function(msg) {  //請勿變更此行
   //「以上」是你可以編輯的部份，請將你的ELIZA處理訊息的核心程式碼放在以上的段落內
 
   //在msgRecords資料庫放入運算訊息之後的結果，做為ELIZA的回應，請勿變更此行
-  msgRecords.insert({createdAt: new Date(), speaker: 'ELIZA', msg: processResults});
+  msgRecords.insert({time: new Date(), speaker: 'ELIZA', msg: processResults});
 };//請勿變更此行
