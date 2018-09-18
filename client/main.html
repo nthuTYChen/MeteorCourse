@@ -1,27 +1,17 @@
-<!--
-    ELIZA Meteor Template Created by CHEN, Tsung-Ying
-    for the NTHU course "Basic Web Linguistic Application Development"
-    Last Updated on Sep 2, 2018
--->
-
 <head>
-  <title>My ELIZA</title>
+  <!-- This is the title of my app -->
+  <title>My Chatbot</title>
 </head>
-
 <body>
   <center>
-    <h1>This is my ELIZA!</h1>
+    <h1>
+      <a href = "https://en.wikipedia.org/wiki/ELIZA" target = "_blank">This is my ELIZA!</a>
+    </h1>
+    <textarea id = "conversationBox" rows = "20" cols = "80" readonly>ELIZA: How are you doing?</textarea><br/>
     <form>
-      <p>
-        <textarea id = "conversationBox" rows = "20" cols = "80" readOnly>{{allMsg}}</textarea>
-      </p>
-      <p>
-        <input type = "text" id = "myMsg" size = "80" placeholder = "Enter Your Message" />
-      </p>
-      <p>
-        <input type = "submit" id = "submitMsg" value = "Submit" />
-        <input type = "reset" id = "resetMsg" value = "Reset" />
-      </p>
+      <input type = "text" id = "myMsg" size = "80" placeholder = "Please enter your message here..." /><br/>
+      <input type = "submit" id = "submitMsg" value = "Submit" />
+      <input type = "reset" id = "resetMsg" value = "Reset" />
     </form>
   </center>
 </body>
