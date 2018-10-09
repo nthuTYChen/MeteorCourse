@@ -4,7 +4,17 @@
     Last Updated on Oct 2, 2018
 */
 
-for(let age=0 ; age < 100 ; age++) {
+
+
+/*var result = 0;
+
+for(let num=1 ; num <= 100 ; num++) {
+  result = result + num;
+}
+
+console.log(result);*/
+
+/*for(let age=0 ; age < 100 ; age++) {
   if(age === 0) {
     console.log(age+" : Welcome to the world!");
   }
@@ -17,7 +27,7 @@ for(let age=0 ; age < 100 ; age++) {
   else if(age === 99) {
     console.log(age+" : Your time has come."); //QQ
   }
-}
+}*/
 
 /*var x = 5, y = 10;
 
