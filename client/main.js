@@ -29,6 +29,18 @@ for(let callNum = 1 ; callNum < 3 ; callNum++) {
 
 console.log(fakeGoogleMap("Taipei", "Hsinchu"));*/
 
+/*var myFirstBike = {
+  brand: "GIANT",
+  when: 1993,
+  color: "red",
+  price: 5500,
+  stolenYears: [1995, 2000, 2004]
+};
+
+var stolenYears = myFirstBike.stolenYears;
+
+console.log(stolenYears[0]);*/
+
 /*var Mike = {
   age: 28,
   gender: "Male",
@@ -38,4 +50,70 @@ console.log(fakeGoogleMap("Taipei", "Hsinchu"));*/
 
 Mike["age"] = 30;
 console.log(Mike["age"]);*/
+
+/*var coffeeMachine = {
+    makeEspresso: function() {
+        console.log("Here's your espresso!");
+    },
+    makeLatte: function() {
+        console.log("Here's your Latte!");
+    },
+    makeAnything: function(request) {
+        console.log("Here's your "+request);
+    }
+};
+
+coffeeMachine.makeAnything("oolong tea");*/
+
+/*var emptyObj = {};
+
+emptyObj.price = 5500;
+console.log(emptyObj.price);
+
+delete emptyObj.price;
+console.log(emptyObj.price)*/
+
+/*var numbers = [1, 2, 3, 4, 5];
+
+for(let index = (numbers.length-1) ; index >= 0 ; index--) {
+    console.log(numbers[index]);
+}*/
+
+/*var numbers = [25, 98, 1, 17, 20, 39];
+var hugeNums = [];
+
+for(let index = 0 ; index < numbers.length ; index++) {
+    let num = numbers[index];
+    if(num > 30) {
+      hugeNums.push(num);
+    }
+    else {
+      console.log(num);
+    }
+}
+
+console.log(hugeNums);*/
+
+var str = "This is a string.";
+
+str = str.replace("string", "message");
+console.log(str);
+
+var words = str.split("is");
+console.log(words);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
