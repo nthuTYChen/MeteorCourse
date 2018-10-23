@@ -4,14 +4,23 @@
 </head>
 <body>
   <center>
-    <h1>
-      <a href = "https://en.wikipedia.org/wiki/ELIZA" target = "_blank">This is my ELIZA!</a>
-    </h1>
-    <textarea id = "conversationBox" rows = "20" cols = "80" readonly>ELIZA: How are you doing?</textarea><br/>
-    <form>
-      <input type = "text" id = "myMsg" size = "80" placeholder = "Please enter your message here..." /><br/>
-      <input type = "submit" id = "submitMsg" value = "Submit" />
-      <input type = "reset" id = "resetMsg" value = "Reset" />
-    </form>
+    {{> mainSection}}
+    {{> formSection}}
   </center>
 </body>
+
+<template name = "mainSection">
+  <h1>
+    <a href = "https://en.wikipedia.org/wiki/ELIZA" target = "_blank">This is my ELIZA!</a>
+  </h1>
+  <textarea id = "conversationBox" rows = "20" cols = "80" readonly>ELIZA: How are you doing?</textarea><br/>
+</template>
+
+<template name = "formSection">
+  <form>
+    <input type = "text" id = "myMsg" size = "80" placeholder = "Please enter your message here..." /><br/>
+    <input type = "submit" class = "buttons" id = "submitMsg" value = "Submit" />
+    <input type = "reset" class = "buttons" id = "resetMsg" value = "Reset" />
+  </form>
+</template>
+
