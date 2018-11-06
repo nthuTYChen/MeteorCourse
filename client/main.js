@@ -4,7 +4,7 @@
     Last Updated on Oct 30, 2018
 */
 
-Session.setDefault("number", 0);
+Session.setDefault("currentPage", "frontPage");
 
 var stupidResponse = function() {
   return "I beg your pardon?";
@@ -16,6 +16,12 @@ Template.body.onCreated(function() {
 
 Template.body.onRendered(function() {
 
+});
+
+Template.body.helpers({
+  checkCurrentPage: function(page) {
+    return Session.equals("currentPage", page);
+  }
 });
 
 Template.mainSection.helpers({
@@ -57,7 +63,11 @@ Template.formSection.events({
   }
 });
 
-
+Template.frontPage.events({
+  "click #enterMain": function() {
+    Session.set("currentPage", "home");
+  }
+});
 
 
 
