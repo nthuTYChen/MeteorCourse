@@ -7,6 +7,10 @@
 var numbers = [88, 204, 101, 294, 18, 1, 6, 7];
 var index = new ReactiveVar(0);
 
+Session.setDefault("number", 0);
+Session.set("number", 1);
+console.log(Session.get("number"));
+
 var stupidResponse = function() {
   return "I beg your pardon?";
 };
