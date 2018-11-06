@@ -4,7 +4,8 @@
     Last Updated on Oct 30, 2018
 */
 
-var number = new ReactiveVar(0);
+var numbers = [88, 204, 101, 294, 18, 1, 6, 7];
+var index = new ReactiveVar(0);
 
 var stupidResponse = function() {
   return "I beg your pardon?";
@@ -35,19 +36,28 @@ Template.mainSection.helpers({
 });
 
 Template.formSection.helpers({
-  getNumber: function() {
-    return number.get();
-  }
+    getIndex: function() {
+      return index.get();
+    },
+    getNumber: function() {
+      return numbers[index.get()];
+    }
 });
 
 Template.formSection.events({
-  "click #increase": function() {
-    let curNum = number.get();
-    number.set(curNum+1);
+  "click #next": function() {
+    let numLength = numbers.length;
+    let newIndex = index.get() + 1;
+    if(newIndex < numLength)
+    {
+      index.set(newIndex);
+    }
   },
-  "click #decrease": function() {
-    let curNum = number.get();
-    number.set(curNum-1);
+  "click #prev": function() {
+    let newIndex = index.get() - 1;
+    if(newIndex >= 0) {
+      index.set(newIndex);
+    }
   },
   "click #submitMsg": function(event) {
     event.preventDefault();

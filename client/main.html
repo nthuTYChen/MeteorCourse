@@ -18,9 +18,9 @@
 </template>
 
 <template name = "formSection">
-  <input type = "text" id = "numberBox" value = "{{getNumber}}" /> 
-  <input type = "button" id = "increase" value = "Add 1" /> 
-  <input type = "button" id = "decrease" value = "Minus 1" />
+  <h3>The number in the position {{getIndex}} is {{getNumber}}.</h3>
+  <input type = "button" id = "next" value = "Next" /> 
+  <input type = "button" id = "prev" value = "Prev" />
   <form>
     <input type = "text" id = "myMsg" size = "80" placeholder = "Please enter your message here..." /><br/>
     <input type = "submit" class = "buttons" id = "submitMsg" value = "Submit" />
