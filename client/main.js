@@ -4,6 +4,8 @@
     Last Updated on Oct 30, 2018
 */
 
+var number = new ReactiveVar(0);
+
 var stupidResponse = function() {
   return "I beg your pardon?";
 };
@@ -32,7 +34,21 @@ Template.mainSection.helpers({
   }
 });
 
+Template.formSection.helpers({
+  getNumber: function() {
+    return number.get();
+  }
+});
+
 Template.formSection.events({
+  "click #increase": function() {
+    let curNum = number.get();
+    number.set(curNum+1);
+  },
+  "click #decrease": function() {
+    let curNum = number.get();
+    number.set(curNum-1);
+  },
   "click #submitMsg": function(event) {
     event.preventDefault();
     let myMsgObj = document.getElementById("myMsg");
