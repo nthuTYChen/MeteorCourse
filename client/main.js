@@ -4,12 +4,7 @@
     Last Updated on Oct 30, 2018
 */
 
-var numbers = [88, 204, 101, 294, 18, 1, 6, 7];
-var index = new ReactiveVar(0);
-
 Session.setDefault("number", 0);
-Session.set("number", 1);
-console.log(Session.get("number"));
 
 var stupidResponse = function() {
   return "I beg your pardon?";
@@ -40,29 +35,10 @@ Template.mainSection.helpers({
 });
 
 Template.formSection.helpers({
-    getIndex: function() {
-      return index.get();
-    },
-    getNumber: function() {
-      return numbers[index.get()];
-    }
+
 });
 
 Template.formSection.events({
-  "click #next": function() {
-    let numLength = numbers.length;
-    let newIndex = index.get() + 1;
-    if(newIndex < numLength)
-    {
-      index.set(newIndex);
-    }
-  },
-  "click #prev": function() {
-    let newIndex = index.get() - 1;
-    if(newIndex >= 0) {
-      index.set(newIndex);
-    }
-  },
   "click #submitMsg": function(event) {
     event.preventDefault();
     let myMsgObj = document.getElementById("myMsg");
