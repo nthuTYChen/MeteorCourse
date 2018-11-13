@@ -4,6 +4,11 @@
     Last Updated on Oct 30, 2018
 */
 
+var numbers = [1,3,5,7,9];
+
+Meteor.call("addNumbers", numbers);
+Meteor.call("serverFunc", "hello", 5);
+
 Session.setDefault("currentPage", "frontPage");
 
 var conversationLog = new ReactiveVar("ELIZA: How are you doing?");
