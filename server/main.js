@@ -1,10 +1,23 @@
-var stupidResponse = function() {
-	return "I beg your pardon";
+var profileDataDB = new Mongo.Collection("profileData");
+
+var stupidResponse = function(msg) {
+	return "What is "+msg+"?";
 };
+
+Meteor.startup(function() {
+	profileDataDB.insert(
+			{
+				name: "Michael Jackson",
+				affiliation: "Heaven",
+				age: 130
+			}
+		);
+	console.log(profileDataDB.find().fetch());
+});
 
 Meteor.methods({
 	msgReceiver: function(msg) {
-		return stupidResponse();
+		return stupidResponse(msg);
 	},
 	serverFunc: function(data1, data2) {
 		console.log(data1);
