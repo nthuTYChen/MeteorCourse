@@ -6,8 +6,14 @@
 
 var numbers = [1,3,5,7,9];
 
-Meteor.call("addNumbers", numbers);
-Meteor.call("serverFunc", "hello", 5);
+Meteor.call("addNumbers", numbers, function(error, result) {
+    console.log(result);
+});
+Meteor.call("serverFunc", "hello", 5, function(error, result) {
+    console.log(error);
+    console.log(result);
+});
+console.log("Test order.");
 
 Session.setDefault("currentPage", "frontPage");
 
