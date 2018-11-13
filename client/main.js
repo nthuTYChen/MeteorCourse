@@ -19,10 +19,6 @@ Session.setDefault("currentPage", "frontPage");
 
 var conversationLog = new ReactiveVar("ELIZA: How are you doing?");
 
-var stupidResponse = function() {
-  return "I beg your pardon?";
-};
-
 Template.body.onCreated(function() {
 
 });
@@ -54,9 +50,11 @@ Template.formSection.events({
     let myMsg = myMsgObj.value;
     let oldConversation = conversationLog.get();
     let newConversation = oldConversation+"\n"+"You: "+myMsg;
-    let ELIZAResponse = stupidResponse();
-    newConversation = newConversation+"\n"+"ELIZA: "+ELIZAResponse;
-    conversationLog.set(newConversation);
+    Meteor.call("msgReceiver", myMsg, function(error, result) {
+        let ELIZAResponse = result;
+        newConversation = newConversation+"\n"+"ELIZA: "+ELIZAResponse;
+        conversationLog.set(newConversation);
+    });
     myMsgObj.value = "";
   },
   "click #resetMsg": function() {

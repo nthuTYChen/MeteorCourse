@@ -1,4 +1,11 @@
+var stupidResponse = function() {
+	return "I beg your pardon";
+};
+
 Meteor.methods({
+	msgReceiver: function(msg) {
+		return stupidResponse();
+	},
 	serverFunc: function(data1, data2) {
 		console.log(data1);
 		console.log(data2);
