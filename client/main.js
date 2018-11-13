@@ -6,6 +6,8 @@
 
 Session.setDefault("currentPage", "frontPage");
 
+var conversationLog = new ReactiveVar("ELIZA: How are you doing?");
+
 var stupidResponse = function() {
   return "I beg your pardon?";
 };
@@ -25,18 +27,8 @@ Template.body.helpers({
 });
 
 Template.mainSection.helpers({
-  getData: function() {
-    return "Here's your data!";
-  },
-  testHelper: function() {
-    return "This data is from a helper!";
-  },
-  stringCombine: function(str1, str2) {
-    return str1+" "+str2;
-  },
-  multipler: function(num1, num2) {
-    let product = parseInt(num1) * parseInt(num2);
-    return product;
+  getConversation: function()   {
+    return conversationLog.get();
   }
 });
 
@@ -49,17 +41,15 @@ Template.formSection.events({
     event.preventDefault();
     let myMsgObj = document.getElementById("myMsg");
     let myMsg = myMsgObj.value;
-    let conBoxObj = document.getElementById("conversationBox");
-    let oldConversation = conBoxObj.value;
+    let oldConversation = conversationLog.get();
     let newConversation = oldConversation+"\n"+"You: "+myMsg;
     let ELIZAResponse = stupidResponse();
     newConversation = newConversation+"\n"+"ELIZA: "+ELIZAResponse;
-    conBoxObj.value = newConversation;
+    conversationLog.set(newConversation);
     myMsgObj.value = "";
   },
   "click #resetMsg": function() {
-    let conBoxObj = document.getElementById("conversationBox");
-    conBoxObj.value = "ELIZA: How are you doing?";
+    conversationLog.set("ELIZA: How are you doing?");
   }
 });
 
