@@ -41,10 +41,19 @@ Meteor.startup(function() {
 				age: 999
 			}
 		);
+	profileDataDB.update(
+		{
+			affiliation: "NTHU",
+			age: {$gt: 65}
+		},
+		{
+			$set: {active: false}
+		}
+	);
 	let searchResults = profileDataDB.find(
 		{
 			affiliation: "NTHU", 
-		 	age: {$lt: 40}			//gte = greater than or equal to = >
+		 	age: {$gt: 40}			//gte = greater than or equal to = >
 		}							//gt = greater than
 	);
 	console.log(searchResults.fetch());
