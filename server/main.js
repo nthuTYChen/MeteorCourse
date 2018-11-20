@@ -5,6 +5,7 @@ var stupidResponse = function(msg) {
 };
 
 Meteor.startup(function() {
+	profileDataDB.remove({});
 	profileDataDB.insert(
 			{
 				name: "Michael Jackson",
@@ -12,7 +13,41 @@ Meteor.startup(function() {
 				age: 130
 			}
 		);
-	console.log(profileDataDB.find().fetch());
+	profileDataDB.insert(
+			{
+				name: "TY Chen",
+				affiliation: "NTHU",
+				age: 38
+			}
+		);
+	profileDataDB.insert(
+			{
+				name: "My Mom",
+				affiliation: "NTHU",
+				age: 75
+			}
+		);
+	profileDataDB.insert(
+			{
+				name: "Slash",
+				affiliation: "Guns & Roses",
+				age: 56
+			}
+		);
+	profileDataDB.insert(
+			{
+				name: "Ting Ting",
+				affiliation: "Mars",
+				age: 999
+			}
+		);
+	let searchResults = profileDataDB.find(
+		{
+			affiliation: "NTHU", 
+		 	age: {$lt: 40}			//gte = greater than or equal to = >
+		}							//gt = greater than
+	);
+	console.log(searchResults.fetch());
 });
 
 Meteor.methods({

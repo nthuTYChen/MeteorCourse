@@ -4,6 +4,27 @@
     Last Updated on Oct 30, 2018
 */
 
+/*var str = "String.";
+var num = 6;
+var nums = [1,2,3,4,5,6];
+var thisAFunction = function(x) {
+  console.log(x);
+};
+
+var obj = {
+  name: "TY Chen",
+  affiliation: "NTHU",
+  gender: "Male"
+};
+
+thisAFunction(
+  {
+    field1: "Test",
+    field2: "Hello",
+    field3: "Yeah!"
+  }
+);*/
+
 var numbers = [1,3,5,7,9];
 
 Meteor.call("addNumbers", numbers, function(error, result) {
