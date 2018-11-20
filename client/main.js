@@ -25,6 +25,10 @@ thisAFunction(
   }
 );*/
 
+var conversationLogDB = new Mongo.Collection("conversationLog");
+
+//console.log(conversationLogDB.find().fetch());
+
 var numbers = [1,3,5,7,9];
 
 Meteor.call("addNumbers", numbers, function(error, result) {
@@ -55,8 +59,18 @@ Template.body.helpers({
 });
 
 Template.mainSection.helpers({
-  getConversation: function()   {
-    return conversationLog.get();
+  getConversation: function() {
+    let dbData = conversationLogDB.find({}, {sort: {time: 1}});
+    dbData = dbData.fetch();
+    let conversationLog = "";
+    for(let index=0 ; index<dbData.length ; index++) {
+      let msgData = dbData[index];
+      conversationLog = conversationLog+msgData.source+": ";
+      conversationLog = conversationLog+msgData.msg+"\n";
+    }
+    return conversationLog;
+    //console.log(conversationLogDB.find().fetch());
+    //return conversationLog.get();
   }
 });
 
@@ -69,13 +83,14 @@ Template.formSection.events({
     event.preventDefault();
     let myMsgObj = document.getElementById("myMsg");
     let myMsg = myMsgObj.value;
-    let oldConversation = conversationLog.get();
-    let newConversation = oldConversation+"\n"+"You: "+myMsg;
-    Meteor.call("msgReceiver", myMsg, function(error, result) {
+    //let oldConversation = conversationLog.get();
+    //let newConversation = oldConversation+"\n"+"You: "+myMsg;
+    /*Meteor.call("msgReceiver", myMsg, function(error, result) {
         let ELIZAResponse = result;
         newConversation = newConversation+"\n"+"ELIZA: "+ELIZAResponse;
         conversationLog.set(newConversation);
-    });
+    });*/
+    Meteor.call("msgReceiver", myMsg);
     myMsgObj.value = "";
   },
   "click #resetMsg": function() {
