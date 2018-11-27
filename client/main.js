@@ -55,11 +55,22 @@ Template.formSection.events({
     event.preventDefault();
     let myMsgObj = document.getElementById("myMsg");
     let myMsg = myMsgObj.value;
-    Meteor.call("msgReceiver", myMsg);
+    Meteor.call("msgReceiver", myMsg, function(error, result) {
+      if(error) {
+
+      }
+      else if(result === "full") {
+        alert("The database is full!");
+      }
+      else {
+
+      }
+    });
     myMsgObj.value = "";
   },
   "click #resetMsg": function() {
-    conversationLog.set("ELIZA: How are you doing?");
+    //conversationLog.set("ELIZA: How are you doing?");
+    Meteor.call("resetMsg");
   }
 });
 

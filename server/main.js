@@ -22,21 +22,37 @@ Meteor.startup(function() {
 
 Meteor.methods({
 	msgReceiver: function(msg) {
-		conversationLogDB.insert(
-			{
-				source: "You",
-				msg: msg,
-				time: new Date()
-			}
-		);
-		let ELIZAResponse = stupidResponse(msg);
+		let dataNum = conversationLogDB.find({}).fetch().length;
+		if(dataNum <= 20) {
+			conversationLogDB.insert(
+				{
+					source: "You",
+					msg: msg,
+					time: new Date()
+				}
+			);
+			let ELIZAResponse = stupidResponse(msg);
+			conversationLogDB.insert(
+				{
+					source: "ELIZA",
+					msg: ELIZAResponse,
+					time: new Date()
+				}
+			);
+			return;
+		}
+		else {
+			return "full";
+		}
+	},
+	resetMsg: function() {
+		conversationLogDB.remove({});
 		conversationLogDB.insert(
 			{
 				source: "ELIZA",
-				msg: ELIZAResponse,
+				msg: "How are you doing?",
 				time: new Date()
 			}
 		);
-		return;
 	}
 });
