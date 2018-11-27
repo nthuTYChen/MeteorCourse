@@ -29,6 +29,9 @@ var conversationLogDB = new Mongo.Collection("conversationLog");
 var conversationLog = new ReactiveVar("ELIZA: How are you doing?");
 
 Session.setDefault("currentPage", "frontPage");
+Session.setDefault("userSession", "");
+
+Meteor.subscribe("userConversation", Session.get("userSession"));
 
 Template.body.helpers({
   checkCurrentPage: function(page) {
@@ -76,7 +79,16 @@ Template.formSection.events({
 
 Template.frontPage.events({
   "click #enterMain": function() {
-    Session.set("currentPage", "home");
+    let username = document.getElementById("username").value;
+    Meteor.call("setUser", username, function(error, result) {
+      if(error) {
+        alert("Username cannot have any space!");
+      }
+      else {
+        Session.set("userSession", username);
+        Session.set("currentPage", "home");
+      }
+    });
   }
 });
 

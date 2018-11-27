@@ -5,6 +5,22 @@ var stupidResponse = function(msg) {
 	return "What is "+msg+"?";
 };
 
+conversationLogDB.deny({
+	insert() {
+		return true;
+	},
+	update() {
+		return true;
+	},
+	remove() {
+		return true;
+	}
+});
+
+Meteor.publish("userConversation", function(username) {
+	return conversationLogDB.find({user: username});
+});
+
 Meteor.startup(function() {
 	//profileDataDB.remove({});
 	conversationLogDB.remove({});
@@ -21,6 +37,28 @@ Meteor.startup(function() {
 });
 
 Meteor.methods({
+	setUser: function(username) {
+		if(username.includes(" ")) {
+			throw new Meteor.Error();
+		}
+		else {
+			let userLog = conversationLogDB.find({user: username}).fetch();
+			if(userLog.length > 0) {
+				return;
+			}
+			else {
+				conversationLogDB.insert(
+					{
+						user: username,
+						source: "ELIZA",
+						msg: "How are you doing?",
+						time: new Date()
+					}
+				);
+				return;
+			}
+		}
+	},
 	msgReceiver: function(msg) {
 		let dataNum = conversationLogDB.find({}).fetch().length;
 		if(dataNum <= 20) {
