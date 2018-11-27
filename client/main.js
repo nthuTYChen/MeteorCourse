@@ -1,7 +1,7 @@
 /*
     ELIZA Meteor Template Created by CHEN, Tsung-Ying
     for the NTHU course "Basic Web Linguistic Application Development"
-    Last Updated on Oct 30, 2018
+    Last Updated on Nov 27, 2018
 */
 
 /*var str = "String.";
@@ -26,31 +26,9 @@ thisAFunction(
 );*/
 
 var conversationLogDB = new Mongo.Collection("conversationLog");
-
-//console.log(conversationLogDB.find().fetch());
-
-var numbers = [1,3,5,7,9];
-
-Meteor.call("addNumbers", numbers, function(error, result) {
-    console.log(result);
-});
-Meteor.call("serverFunc", "hello", 5, function(error, result) {
-    console.log(error);
-    console.log(result);
-});
-console.log("Test order.");
-
-Session.setDefault("currentPage", "frontPage");
-
 var conversationLog = new ReactiveVar("ELIZA: How are you doing?");
 
-Template.body.onCreated(function() {
-
-});
-
-Template.body.onRendered(function() {
-
-});
+Session.setDefault("currentPage", "frontPage");
 
 Template.body.helpers({
   checkCurrentPage: function(page) {
@@ -69,13 +47,7 @@ Template.mainSection.helpers({
       conversationLog = conversationLog+msgData.msg+"\n";
     }
     return conversationLog;
-    //console.log(conversationLogDB.find().fetch());
-    //return conversationLog.get();
   }
-});
-
-Template.formSection.helpers({
-
 });
 
 Template.formSection.events({
@@ -83,13 +55,6 @@ Template.formSection.events({
     event.preventDefault();
     let myMsgObj = document.getElementById("myMsg");
     let myMsg = myMsgObj.value;
-    //let oldConversation = conversationLog.get();
-    //let newConversation = oldConversation+"\n"+"You: "+myMsg;
-    /*Meteor.call("msgReceiver", myMsg, function(error, result) {
-        let ELIZAResponse = result;
-        newConversation = newConversation+"\n"+"ELIZA: "+ELIZAResponse;
-        conversationLog.set(newConversation);
-    });*/
     Meteor.call("msgReceiver", myMsg);
     myMsgObj.value = "";
   },
