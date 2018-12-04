@@ -23,17 +23,7 @@ Meteor.publish("userConversation", function(username) {
 
 Meteor.startup(function() {
 	//profileDataDB.remove({});
-	conversationLogDB.remove({});
-	let searchResults = conversationLogDB.find();
-	if(searchResults.fetch().length < 1) {
-		conversationLogDB.insert(
-			{
-				source: "ELIZA",
-				msg: "How are you doing?",
-				time: new Date()
-			}
-		);
-	}
+	//conversationLogDB.remove({});
 });
 
 Meteor.methods({
@@ -51,7 +41,7 @@ Meteor.methods({
 					{
 						user: username,
 						source: "ELIZA",
-						msg: "How are you doing?",
+						msg: "Hi, "+username+". How are you doing?",
 						time: new Date()
 					}
 				);
@@ -59,11 +49,12 @@ Meteor.methods({
 			}
 		}
 	},
-	msgReceiver: function(msg) {
+	msgReceiver: function(msg, username) {
 		let dataNum = conversationLogDB.find({}).fetch().length;
 		if(dataNum <= 20) {
 			conversationLogDB.insert(
 				{
+					user: username,
 					source: "You",
 					msg: msg,
 					time: new Date()
@@ -72,6 +63,7 @@ Meteor.methods({
 			let ELIZAResponse = stupidResponse(msg);
 			conversationLogDB.insert(
 				{
+					user: username,
 					source: "ELIZA",
 					msg: ELIZAResponse,
 					time: new Date()
@@ -83,12 +75,13 @@ Meteor.methods({
 			return "full";
 		}
 	},
-	resetMsg: function() {
-		conversationLogDB.remove({});
+	resetMsg: function(username) {
+		conversationLogDB.remove({user: username});
 		conversationLogDB.insert(
 			{
+				user: username,
 				source: "ELIZA",
-				msg: "How are you doing?",
+				msg: "Hi, "+username+". How are you doing?",
 				time: new Date()
 			}
 		);

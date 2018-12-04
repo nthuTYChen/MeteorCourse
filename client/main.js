@@ -31,7 +31,9 @@ var conversationLog = new ReactiveVar("ELIZA: How are you doing?");
 Session.setDefault("currentPage", "frontPage");
 Session.setDefault("userSession", "");
 
-Meteor.subscribe("userConversation", Session.get("userSession"));
+Tracker.autorun(function() {
+  Meteor.subscribe("userConversation", Session.get("userSession"));
+});
 
 Template.body.helpers({
   checkCurrentPage: function(page) {
@@ -58,7 +60,7 @@ Template.formSection.events({
     event.preventDefault();
     let myMsgObj = document.getElementById("myMsg");
     let myMsg = myMsgObj.value;
-    Meteor.call("msgReceiver", myMsg, function(error, result) {
+    Meteor.call("msgReceiver", myMsg, Session.get("userSession"), function(error, result) {
       if(error) {
 
       }
@@ -73,7 +75,11 @@ Template.formSection.events({
   },
   "click #resetMsg": function() {
     //conversationLog.set("ELIZA: How are you doing?");
-    Meteor.call("resetMsg");
+    Meteor.call("resetMsg", Session.get("userSession"));
+  },
+  "click #resetUser": function() {
+    Session.set("userSession", "");
+    Session.set("currentPage", "frontPage");
   }
 });
 
