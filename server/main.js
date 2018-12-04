@@ -1,8 +1,31 @@
 var profileDataDB = new Mongo.Collection("profileData");
 var conversationLogDB = new Mongo.Collection("conversationLog");
 
+// . = any char
+// \w = any letter or number
+// \W = any special symbols
+// \d = any digit
+// \D = any non-digit
+
+var regex = /\D/ig;
+var str = "abcdeFGHIJK1234567 *?!";
+
+console.log(str.match(regex));
+//console.log(str.replace(regex, ""));
+
 var stupidResponse = function(msg) {
 	return "What is "+msg+"?";
+};
+
+var initConversation = function(username) {
+	conversationLogDB.insert(
+		{
+			user: username,
+			source: "ELIZA",
+			msg: "Hi, "+username+". How are you doing?",
+			time: new Date()
+		}
+	);
 };
 
 conversationLogDB.deny({
@@ -37,20 +60,13 @@ Meteor.methods({
 				return;
 			}
 			else {
-				conversationLogDB.insert(
-					{
-						user: username,
-						source: "ELIZA",
-						msg: "Hi, "+username+". How are you doing?",
-						time: new Date()
-					}
-				);
+				initConversation(username);
 				return;
 			}
 		}
 	},
 	msgReceiver: function(msg, username) {
-		let dataNum = conversationLogDB.find({}).fetch().length;
+		let dataNum = conversationLogDB.find({user: username}).fetch().length;
 		if(dataNum <= 20) {
 			conversationLogDB.insert(
 				{
@@ -77,13 +93,6 @@ Meteor.methods({
 	},
 	resetMsg: function(username) {
 		conversationLogDB.remove({user: username});
-		conversationLogDB.insert(
-			{
-				user: username,
-				source: "ELIZA",
-				msg: "Hi, "+username+". How are you doing?",
-				time: new Date()
-			}
-		);
+		initConversation(username);
 	}
 });
