@@ -6,9 +6,15 @@ var conversationLogDB = new Mongo.Collection("conversationLog");
 // \W = any special symbols
 // \d = any digit
 // \D = any non-digit
+// + = 1 or more than 1 character
+// * = 0 or more than 1 character
+// [] = any character in the scope
+// () = a character group
 
-var regex = /\D/ig;
-var str = "abcdeFGHIJK1234567 *?!";
+var regex = /[abc]+/ig;
+//var regex2 = /abc(de)+/ig;
+var str = "aaabbbcccd";
+//var str2 = "abcdeabcdedeabcdee";
 
 console.log(str.match(regex));
 //console.log(str.replace(regex, ""));
