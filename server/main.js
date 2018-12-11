@@ -11,24 +11,39 @@ var conversationLogDB = new Mongo.Collection("conversationLog");
 // [] = any character in the scope
 // () = a character group
 
-//var regex = /where.*you.*/ig;
-//var regex2 = /abc(de)+/ig;
-var regexStr = ".+keyword.*";
-var str = "I'm saying awesome!";
-//var str2 = "Where did you go yesterday?";
-var keywords = ["hello", "great", "awesome"];
-
-for(let index=0 ; index<keywords.length ; index++) {
-	let newRegexStr = regexStr.replace("keyword", keywords[index]);
-	let regex = new RegExp(newRegexStr, "i");
-	console.log(str.match(regex));
-}
-
-//console.log(str2.match(regex));
-//console.log(str.replace(regex, ""));
+var regex = /(weather|temperature).* in (\w+)/i;
 
 var stupidResponse = function(msg) {
 	return "What is "+msg+"?";
+};
+
+var weatherInfo = function(msg) {
+	let wtData;
+	let weatherRegex = /(weather|temperature).* in (\w+)/i;
+	let weatherRequest = msg.match(weatherRegex);
+	if(weatherRequest === null) {
+		return "";
+	}
+	else {
+		let lastPos = weatherRequest.length-1;
+		let cityName = weatherRequest[lastPos];
+		let APIKey = "0f9acd286be670dbec09507843f8f78b";
+		let wtInfoURL = 
+			"http://api.openweathermap.org/data/2.5/weather?APPID="+APIKey+
+			"&q="+cityName+"&units=metric";
+		try {
+			wtData = HTTP.get(wtInfoURL);
+			wtData = wtData.data.main;
+			let wtResponse = "It's "+wtData.temp+"C.";
+			return wtResponse;
+			//console.log(wtData);
+		}
+		catch(error) {
+			return "I don't the city.";
+		}
+		return "";
+	}
+	//console.log(weatherRequest);
 };
 
 var initConversation = function(username) {
@@ -90,7 +105,10 @@ Meteor.methods({
 					time: new Date()
 				}
 			);
-			let ELIZAResponse = stupidResponse(msg);
+			let ELIZAResponse = weatherInfo(msg);
+			if(ELIZAResponse === "") {
+				ELIZAResponse = stupidResponse(msg);
+			}
 			conversationLogDB.insert(
 				{
 					user: username,
