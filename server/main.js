@@ -11,12 +11,20 @@ var conversationLogDB = new Mongo.Collection("conversationLog");
 // [] = any character in the scope
 // () = a character group
 
-var regex = /[abc]+/ig;
+//var regex = /where.*you.*/ig;
 //var regex2 = /abc(de)+/ig;
-var str = "aaabbbcccd";
-//var str2 = "abcdeabcdedeabcdee";
+var regexStr = ".+keyword.*";
+var str = "I'm saying awesome!";
+//var str2 = "Where did you go yesterday?";
+var keywords = ["hello", "great", "awesome"];
 
-console.log(str.match(regex));
+for(let index=0 ; index<keywords.length ; index++) {
+	let newRegexStr = regexStr.replace("keyword", keywords[index]);
+	let regex = new RegExp(newRegexStr, "i");
+	console.log(str.match(regex));
+}
+
+//console.log(str2.match(regex));
 //console.log(str.replace(regex, ""));
 
 var stupidResponse = function(msg) {
