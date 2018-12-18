@@ -1,0 +1,40 @@
+* {
+
+}
+
+body {
+	font-family: "Roboto";
+	text-align: center;
+	color: white;
+	background-color: #2a680b;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+a:hover {
+	color: grey;
+}
+
+.buttons {
+	background-color: white;
+	color: black;
+	font-family: "Roboto";
+	font-size: 1vw;
+	padding: 0.2vw;
+	border-radius: 0.1vw;
+}
+
+.buttons:hover {
+	background-color: red;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#conversationBox {
+	height: 50vh;
+	width: 70vw;
+}

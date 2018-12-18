@@ -65,6 +65,7 @@ var loadEngLexicon = function() {
 	let numLines = dataLines.length;
 	let wordInfo;
 	for(let index=1 ; index<numLines ; index++) {
+		console.log(index);
 		wordInfo = dataLines[index].split(",");
 		engLexicon.insert(
 			{

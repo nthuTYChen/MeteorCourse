@@ -1,16 +1,16 @@
 <head>
   <!-- This is the title of my app -->
   <title>My Chatbot</title>
+  <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 <body>
-  <center>
-    {{#if checkCurrentPage "frontPage"}}
-        {{> frontPage}}
-    {{else}}
-        {{> mainSection}}
-        {{> formSection}}
-    {{/if}}
-  </center>
+  {{#if checkCurrentPage "frontPage"}}
+    {{> frontPage}}
+  {{else}}
+    {{> mainSection}}
+    {{> formSection}}
+  {{/if}}
 </body>
 
 <template name = "frontPage">
@@ -25,7 +25,7 @@
   <h1>
     <a href = "https://en.wikipedia.org/wiki/ELIZA" target = "_blank">This is my ELIZA!</a>
   </h1>
-  <textarea id = "conversationBox" rows = "20" cols = "80" readonly>{{getConversation}}</textarea><br/>
+  <textarea id = "conversationBox" readonly>{{getConversation}}</textarea><br/>
 </template>
 
 <template name = "formSection">
