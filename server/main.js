@@ -1,4 +1,5 @@
 var profileDataDB = new Mongo.Collection("profileData");
+var engLexicon = new Mongo.Collection("engLexicon");
 var conversationLogDB = new Mongo.Collection("conversationLog");
 
 // . = any char
@@ -57,6 +58,26 @@ var weatherInfo = function(msg) {
 	//console.log(weatherRequest);
 };
 
+var loadEngLexicon = function() {
+	engLexicon.remove({});
+	let rawData = Assets.getText("monogramList_COCA_subset.txt");
+	let dataLines = rawData.split(/\r\n|\n/);
+	let numLines = dataLines.length;
+	let wordInfo;
+	for(let index=1 ; index<numLines ; index++) {
+		wordInfo = dataLines[index].split(",");
+		engLexicon.insert(
+			{
+				word: wordInfo[0],
+				pos: wordInfo[1],
+				freq: parseInt(wordInfo[2])
+			}
+		);
+		//console.log(wordInfo);
+	}
+	console.log(engLexicon.find({pos: "nn1"}).fetch());
+};
+
 var initConversation = function(username) {
 	conversationLogDB.insert(
 		{
@@ -85,6 +106,7 @@ Meteor.publish("userConversation", function(username) {
 });
 
 Meteor.startup(function() {
+	//loadEngLexicon();
 	//profileDataDB.remove({});
 	//conversationLogDB.remove({});
 });
