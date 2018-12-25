@@ -1,5 +1,6 @@
 var profileDataDB = new Mongo.Collection("profileData");
 var engLexicon = new Mongo.Collection("engLexicon");
+var bigramLexicon = new Mongo.Collection("bigramLexicon");
 var conversationLogDB = new Mongo.Collection("conversationLog");
 
 // . = any char
@@ -28,7 +29,7 @@ var tagPOS = function(msg) {
 	else {
 		let targetS = tagPOSRequest[1];
 		let words = targetS.split(" ");
-		let tagResponse = "";
+		let targetResponse = "";
 		for(let index=0 ; index<words.length ; index++) {
 			let dbWords = engLexicon.find(
 				{
@@ -38,9 +39,15 @@ var tagPOS = function(msg) {
 					sort: {freq: -1}
 				}
 			).fetch();
-			console.log(dbWords);
+			if(dbWords.length > 0) {
+				targetResponse = targetResponse + dbWords[0].pos + " ";
+			}
+			else {
+				targetResponse = targetResponse + "UNKNOWN ";
+			}
+			//console.log(dbWords);
 		}
-		return "";
+		return "Here is the POS: "+targetResponse;
 	}
 };
 
@@ -82,6 +89,29 @@ var weatherInfo = function(msg) {
 		return "";
 	}
 	//console.log(weatherRequest);
+};
+
+var loadBigramLexicon = function() {
+	bigramLexicon.remove({});
+	let rawData = Assets.getText("bigramList_COCA_subset.txt");
+	let dataLines = rawData.split(/\r\n|\n/);
+	let numLines = dataLines.length;
+	let bigramInfo;
+	for(let index=1 ; index<numLines ; index++) {
+		console.log(index);
+		bigramInfo = dataLines[index].split("\t");
+		bigramLexicon.insert(
+			{
+				freq: parseInt(bigramInfo[0]),
+				word1: bigramInfo[1],
+				word2: bigramInfo[2],
+				pos1: bigramInfo[3],
+				pos2: bigramInfo[4]
+			}
+		);
+		//console.log(bigramInfo);
+	}
+	//console.log(dataLines[0]);
 };
 
 var loadEngLexicon = function() {
@@ -134,6 +164,7 @@ Meteor.publish("userConversation", function(username) {
 
 Meteor.startup(function() {
 	//loadEngLexicon();
+	//loadBigramLexicon();
 	//profileDataDB.remove({});
 	//conversationLogDB.remove({});
 });
