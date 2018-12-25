@@ -26,7 +26,20 @@ var tagPOS = function(msg) {
 		return "";
 	}
 	else {
-		console.log(tagPOSRequest);
+		let targetS = tagPOSRequest[1];
+		let words = targetS.split(" ");
+		let tagResponse = "";
+		for(let index=0 ; index<words.length ; index++) {
+			let dbWords = engLexicon.find(
+				{
+					word: words[index]
+				},
+				{
+					sort: {freq: -1}
+				}
+			).fetch();
+			console.log(dbWords);
+		}
 		return "";
 	}
 };
