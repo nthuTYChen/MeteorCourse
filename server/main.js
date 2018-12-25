@@ -18,6 +18,19 @@ var stupidResponse = function(msg) {
 	return "What is "+msg+"?";
 };
 
+var tagPOS = function(msg) {
+	//Tag #this is a pen#
+	let tagPOSRegex = /Tag #(.*)#/i;
+	let tagPOSRequest = msg.match(tagPOSRegex);
+	if(tagPOSRequest === null) {
+		return "";
+	}
+	else {
+		console.log(tagPOSRequest);
+		return "";
+	}
+};
+
 var weatherInfo = function(msg) {
 	let wtData;
 	let weatherRegex = /(weather|temperature).* in (\w+)/i;
@@ -60,7 +73,7 @@ var weatherInfo = function(msg) {
 
 var loadEngLexicon = function() {
 	engLexicon.remove({});
-	let rawData = Assets.getText("monogramList_COCA_subset.txt");
+	let rawData = Assets.getText("monogramList_COCA.txt");
 	let dataLines = rawData.split(/\r\n|\n/);
 	let numLines = dataLines.length;
 	let wordInfo;
@@ -76,7 +89,7 @@ var loadEngLexicon = function() {
 		);
 		//console.log(wordInfo);
 	}
-	console.log(engLexicon.find({pos: "nn1"}).fetch());
+	//console.log(engLexicon.find({pos: "nn1"}).fetch());
 };
 
 var initConversation = function(username) {
@@ -140,6 +153,9 @@ Meteor.methods({
 				}
 			);
 			let ELIZAResponse = weatherInfo(msg);
+			if(ELIZAResponse === "") {
+				ELIZAResponse = tagPOS(msg);
+			}
 			if(ELIZAResponse === "") {
 				ELIZAResponse = stupidResponse(msg);
 			}
