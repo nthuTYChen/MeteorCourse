@@ -61,7 +61,7 @@ var weatherInfo = function(msg) {
 	else {
 		let lastPos = weatherRequest.length-1;
 		let cityName = weatherRequest[lastPos];
-		let APIKey = "0f9acd286be670dbec09507843f8f78b";
+		let APIKey = "XXXXXXX";
 		let wtInfoURL = 
 			"http://api.openweathermap.org/data/2.5/weather?APPID="+APIKey+
 			"&q="+cityName+"&units=metric";
